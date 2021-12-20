@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const socketio = require('socketio');
 require('dotenv/config');
-const mongoose = ('./database/connect');
+require('./database/connect')();
 
 const auth = require('./routes/auth');
 
@@ -14,6 +14,10 @@ app.use(express.json());
 
 app.use("/auth", auth);
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-});
+try {
+    app.listen(port, () => {
+        console.log(`Example app listening on port ${port}`);
+    });
+} catch (err) {
+    console.log(err);
+}
